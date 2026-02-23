@@ -21,9 +21,14 @@ RUN bundle install
 COPY package.json package-lock.json ./
 RUN npm ci --include=optional
 
+COPY entrypoint.sh /usr/bin/entrypoint.sh
+RUN chmod +x /usr/bin/entrypoint.sh
+
 COPY . .
 
 RUN chmod +x bin/dev
 
-EXPOSE 3000 5173
+EXPOSE 3000 3036
+
+ENTRYPOINT ["entrypoint.sh"]
 CMD ["bin/dev"]
